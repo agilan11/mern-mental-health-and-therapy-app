@@ -2,12 +2,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import AddClinic from "./pages/AddClinic";
+import { useAppContext } from "./contexts/AppContext";
 import React from "react";
 
 // ✅ Add this line
 
 
 const App = () => {
+  const { isLoggedIn } = useAppContext();
   return (
     <Router>
       <Routes>
@@ -33,8 +36,21 @@ const App = () => {
             </Layout>
           }
         />
+        {isLoggedIn && (
+          <>
+         <Route
+              path="/add-clinic"
+              element={
+                <Layout>
+                  <AddClinic />
+                </Layout>
+              }
+            />
+          </>
+        )}
         <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+        </Routes>
+ 
     </Router>
   );
 };

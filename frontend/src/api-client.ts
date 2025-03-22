@@ -58,3 +58,17 @@ export const register = async (formData: RegisterFormData) => {
       throw new Error("Error during sign out");
     }
   };
+
+  export const addMyClinic = async (clinicFormData: FormData) => {
+    const response = await fetch(`${API_BASE_URL}/api/my-clinics`, {
+      method: "POST",
+      credentials: "include",
+      body: clinicFormData,
+    });
+  
+    if (!response.ok) {
+      throw new Error("Failed to add clinic");
+    }
+  
+    return response.json();
+  };
