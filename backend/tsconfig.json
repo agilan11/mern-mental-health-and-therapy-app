@@ -26,10 +26,7 @@
     "outDir": "./dist",  
 
     /* Generate Type Definitions */
-    "declaration": true, 
-    "emitDeclarationOnly": true, 
-    "declarationDir": "./dist/types", 
-    "composite": true, 
+
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
