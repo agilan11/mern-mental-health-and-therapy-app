@@ -1,5 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
+import {ClinicType} from "./models/clinic";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 export const register = async (formData: RegisterFormData) => {
@@ -68,6 +69,18 @@ export const register = async (formData: RegisterFormData) => {
   
     if (!response.ok) {
       throw new Error("Failed to add clinic");
+    }
+  
+    return response.json();
+  };
+
+  export const fetchMyClinics = async (): Promise<ClinicType[]> => {
+    const response = await fetch(`${API_BASE_URL}/api/my-clinics`, {
+      credentials: "include",
+    });
+  
+    if (!response.ok) {
+      throw new Error("Error fetching clinics");
     }
   
     return response.json();

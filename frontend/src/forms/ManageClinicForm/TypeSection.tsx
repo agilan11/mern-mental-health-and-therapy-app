@@ -11,7 +11,7 @@ const TypeSection = () => {
   } = useFormContext<ClinicFormData>();
 
   // ✅ Watch for an array of selected consultation types
-  const selectedTypes = watch("consultationTypes") || [];
+  const selectedTypes = watch ("consultationTypes") || [];
 
   return (
     <div>

@@ -3,8 +3,9 @@ import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import AddClinic from "./pages/AddClinic";
+import MyClinics from "./pages/MyClinics";
 import { useAppContext } from "./contexts/AppContext";
-import React from "react";
+import React from 'react';
 
 // ✅ Add this line
 
@@ -46,7 +47,16 @@ const App = () => {
                 </Layout>
               }
             />
+          <Route
+              path="/my-clinics"
+              element={
+                <Layout>
+                  <MyClinics />
+                </Layout>
+              }
+            />
           </>
+          
         )}
         <Route path="*" element={<Navigate to="/" />} />
         </Routes>

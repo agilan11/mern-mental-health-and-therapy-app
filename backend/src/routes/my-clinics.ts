@@ -68,5 +68,14 @@ router.post("/",verifyToken,
 
 });
 
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const clinics = await Clinic.find({ therapistId: req.userId });
+    res.json(clinics);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching clinics" });
+  }
+});
+
 export default router;
 
