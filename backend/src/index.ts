@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true})) 
 app.use(cors({
-    origin: process.env.FRONTEND_URL, // Reflects the request origin dynamically
+    origin: true, // Reflects the request origin dynamically
     methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS",
     allowedHeaders: "Content-Type,Authorization",
     credentials: true, // Allows cookies/auth headers
@@ -37,7 +37,10 @@ app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 
-app.listen(7000,()=>{
-    console.log("Server is running on port 7000")
-})
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 7000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
 
