@@ -6,6 +6,7 @@ import Clinic from '../models/clinic'
 import verifyToken from "../middleware/auth";
 import { body } from "express-validator";
 
+
 const router = express.Router();
 
 const storage = multer.memoryStorage();
@@ -76,6 +77,70 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error fetching clinics" });
   }
 });
+
+router.get("/:id", verifyToken, async (req: Request, res: Response) => {
+  const id = req.params.id.toString();
+  try {
+    const clinic = await Clinic.findOne({
+      _id: id,
+      therapistId: req.userId,
+    });
+    res.json(clinic);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching clinics" });
+  }
+});
+
+router.put(
+  "/:clinicId",
+  verifyToken,
+  upload.array("imageFiles"),
+  async (req: Request, res: Response) => {
+    try {
+      const updatedClinic: ClinicType = req.body;
+      updatedClinic.lastUpdated = new Date();
+
+      const clinic = await Clinic.findOneAndUpdate(
+        {
+          _id: req.params.clinicId,
+          therapistId: req.userId,
+        },
+        updatedClinic,
+        { new: true }
+      );
+
+      if (!clinic) {
+        return res.status(404).json({ message: "Clinic not found" });
+      }
+
+      const files = req.files as Express.Multer.File[];
+      const updatedImageUrls = await uploadImages(files);
+
+      clinic.imageUrls = [
+        ...updatedImageUrls,
+        ...(updatedClinic.imageUrls || []),
+      ];
+
+      await clinic.save();
+      res.status(201).json(clinic);
+    } catch (error) {
+      res.status(500).json({ message: "Something went throw" });
+    }
+  }
+);
+
+async function uploadImages(imageFiles: Express.Multer.File[]) {
+  const uploadPromises = imageFiles.map(async (image) => {
+    const b64 = Buffer.from(image.buffer).toString("base64");
+    let dataURI = "data:" + image.mimetype + ";base64," + b64;
+    const res = await cloudinary.v2.uploader.upload(dataURI);
+    return res.url;
+  });
+
+  const imageUrls = await Promise.all(uploadPromises);
+  return imageUrls;
+}
+
 
 export default router;
 

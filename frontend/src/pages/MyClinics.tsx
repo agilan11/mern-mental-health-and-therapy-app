@@ -60,7 +60,7 @@ const MyClinics = () => {
             </div>
             <span className="flex justify-end">
               <Link
-                to={`/edit-hotel/${clinic._id}`}
+                to={`/edit-clinic/${clinic._id}`}
                 className="flex bg-[#00ff00] text-black text-lg font-bold p-3 rounded-xl hover:bg-green-500 transition duration-300">
                 View Details
               </Link>

@@ -26,9 +26,9 @@ const Header = () => {
     </Link>
     <Link
       className="flex items-center text-[#00ff00] px-4 py-2 font-bold rounded-md hover:bg-[#008000] transition duration-300"
-      to="/therapy-dashboard"
+      to="/my-clinics"
     >
-      Therapy Dashboard
+      My Clinics
     </Link>
     <SignOutButton />
   </>

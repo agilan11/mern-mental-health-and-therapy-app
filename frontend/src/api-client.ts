@@ -85,3 +85,32 @@ export const register = async (formData: RegisterFormData) => {
   
     return response.json();
   };
+
+  export const fetchMyClinicById = async (clinicId: string): Promise<ClinicType> => {
+    const response = await fetch(`${API_BASE_URL}/api/my-clinics/${clinicId}`, {
+      credentials: "include",
+    });
+  
+    if (!response.ok) {
+      throw new Error("Error fetching Clinics");
+    }
+  
+    return response.json();
+  };
+
+  export const updateMyClinicById = async (clinicFormData: FormData) => {
+    const response = await fetch(
+      `${API_BASE_URL}/api/my-clinics/${clinicFormData.get("clinicId")}`,
+      {
+        method: "PUT",
+        body: clinicFormData,
+        credentials: "include",
+      }
+    );
+  
+    if (!response.ok) {
+      throw new Error("Failed to update Clinic");
+    }
+  
+    return response.json();
+  };

@@ -5,6 +5,8 @@ import React from 'react';
 import FacilitiesSection from "./FacilitiesSection";
 import SpecialtiesSection from "./SpecialtiesSection";
 import ImagesSection from "./ImagesSection";
+import ClinicType from "src/models/clinic";
+import { useEffect } from "react";
 
 export type ClinicFormData = {
     name: string;
@@ -21,15 +23,24 @@ export type ClinicFormData = {
 };
 
 type Props = {
+    clinic?: ClinicType;
     onSave: (clinicFormData: FormData) => void;
     isLoading: boolean;
   };
 
-export const ManageClinicForm=({ onSave, isLoading }: Props)=>{
+export const ManageClinicForm=({ onSave, isLoading, clinic }: Props)=>{
     const formMethods = useForm<ClinicFormData>();
-    const { handleSubmit} = formMethods;
+    const { handleSubmit, reset} = formMethods;
+
+    useEffect(() => {
+      reset(clinic);
+    }, [clinic, reset]);
+    
     const onSubmit=handleSubmit((formDataJson: ClinicFormData)=>{
         const formData = new FormData();
+        if (clinic) {
+          formData.append("clinicId", clinic._id);
+        }
 
         formData.append("name", formDataJson.name);
         formData.append("city", formDataJson.city);
@@ -49,6 +60,13 @@ export const ManageClinicForm=({ onSave, isLoading }: Props)=>{
           formDataJson.facilities.forEach((facility, index) => {
             formData.append(`facilities[${index}]`, facility);
           });
+
+          if (formDataJson.imageUrls) {
+            formDataJson.imageUrls.forEach((url, index) => {
+              formData.append(`imageUrls[${index}]`, url);
+            });
+          }
+
           Array.from(formDataJson.imageFiles).forEach((imageFile) => {
             formData.append(`imageFiles`, imageFile);
           });

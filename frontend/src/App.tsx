@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import AddClinic from "./pages/AddClinic";
 import MyClinics from "./pages/MyClinics";
+import EditClinic from "./pages/EditClinic";
 import { useAppContext } from "./contexts/AppContext";
 import React from 'react';
 
@@ -55,7 +56,17 @@ const App = () => {
                 </Layout>
               }
             />
+          <Route
+              path="/edit-clinic/:clinicId"
+              element={
+                <Layout>
+                  <EditClinic />
+                </Layout>
+              }
+            />
           </>
+          
+          
           
         )}
         <Route path="*" element={<Navigate to="/" />} />

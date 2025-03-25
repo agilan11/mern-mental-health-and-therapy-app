@@ -61,3 +61,23 @@ test("should allow user to add a clinic", async ({ page }) => {
     ).toBeVisible();
     await expect(page.getByRole("link", { name: "Add Clinic" })).toBeVisible();
   });
+
+  test("should edit clinic", async ({ page }) => {
+    await page.goto(`${UI_URL}my-clinics`);
+  
+    await page.getByRole("link", { name: "View Details" }).first().click();
+  
+    await page.waitForSelector('[name="name"]', { state: "attached" });
+    await expect(page.locator('[name="name"]')).toHaveValue("LA Wellness Center");
+    await page.locator('[name="name"]').fill("LA Wellness Center UPDATED");
+    await page.getByRole("button", { name: "Save" }).click();
+    await expect(page.getByText("Clinic Saved!")).toBeVisible();
+  
+    await page.reload();
+  
+    await expect(page.locator('[name="name"]')).toHaveValue(
+      "LA Wellness Center UPDATED"
+    );
+    await page.locator('[name="name"]').fill("LA Wellness Center");
+    await page.getByRole("button", { name: "Save" }).click();
+  });
