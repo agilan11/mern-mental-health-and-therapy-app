@@ -11,7 +11,7 @@ export type ClinicType = {
     consultationTypes: string[];  // Types of therapy offered (e.g., individual, couples, family)
     facilities: string[];  // Amenities available (e.g., wheelchair access, private rooms)
     pricePerSession: number;  // Cost per therapy session
-    starRating: number;  // Aggregate rating from patients
+    sessionsCompleted: number;  // Aggregate rating from patients
     imageUrls: string[];  // Clinic images
     lastUpdated: Date;  // List of scheduled appointments
 };
@@ -26,7 +26,7 @@ const clinicSchema = new mongoose.Schema<ClinicType>({
     consultationTypes: [{ type: String, required: true }], // Therapy formats (e.g., Individual, Family)
     facilities: [{ type: String, required: true }], // Clinic amenities
     pricePerSession: { type: Number, required: true }, // Cost per session
-    starRating: { type: Number, required: true, min: 1, max: 5 }, // Aggregate rating
+    sessionsCompleted: { type: Number, required: true, min: 0 }, // Aggregate rating
     imageUrls: [{ type: String, required: true }], // Clinic images
     lastUpdated: { type: Date, default: Date.now }, // Auto-updated timestamp
      // Scheduled therapy sessions

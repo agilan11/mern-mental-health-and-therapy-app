@@ -37,6 +37,10 @@ router.post("/",verifyToken,
         .notEmpty()
         .isNumeric()
         .withMessage("Price per session is required and must be a number"),
+        body("sessionsCompleted")
+        .notEmpty()
+        .isNumeric()
+        .withMessage("Sessions completed is required and must be a number"),
     body("facilities")
         .notEmpty()
         .isArray()

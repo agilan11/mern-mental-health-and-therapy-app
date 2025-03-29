@@ -16,7 +16,7 @@ export type ClinicFormData = {
     specialties: string[]; // Types of therapy offered (e.g., Anxiety, Depression)
     consultationTypes: string[]; // E.g., Individual, Couples, Family Therapy
     pricePerSession: number; // Cost per therapy session
-    starRating: number;
+    sessionsCompleted: number;
     facilities: string[]; // Amenities at the clinic (e.g., Parking, Wheelchair Access)
     imageFiles: FileList; // Uploaded images
     imageUrls: string[]; // URLs of uploaded images
@@ -47,7 +47,7 @@ export const ManageClinicForm=({ onSave, isLoading, clinic }: Props)=>{
         formData.append("country", formDataJson.country);
         formData.append("description", formDataJson.description);
         formData.append("pricePerSession", formDataJson.pricePerSession.toString()); 
-        formData.append("starRating", formDataJson.starRating.toString());
+        formData.append("sessionsCompleted", formDataJson.sessionsCompleted.toString());
 
         formDataJson.specialties.forEach((specialty, index) => {
             formData.append(`specialties[${index}]`, specialty);

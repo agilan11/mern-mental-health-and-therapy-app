@@ -1,5 +1,3 @@
-
-
 export type ClinicType = {
     _id: string;
     therapistId: string;  // Unique ID of the therapist who owns the clinic

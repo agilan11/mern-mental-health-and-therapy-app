@@ -1,6 +1,7 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 import {ClinicType} from "./models/clinic";
+import {ClinicSearchResponse} from "./models/clinic"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 export const register = async (formData: RegisterFormData) => {
@@ -114,3 +115,54 @@ export const register = async (formData: RegisterFormData) => {
   
     return response.json();
   };
+
+  export type SearchParams = {
+    location?: string; // City or country where the clinic is located
+ // Preferred appointment date
+    specialties?: string[]; // Types of therapy offered (e.g., Anxiety, Depression)
+    consultationTypes?: string[]; // Therapy types (e.g., Individual, Family, Couples)
+    facilities?: string[]; // Amenities (e.g., Wheelchair Access, Parking)
+    page?: string; // Pagination
+    maxPrice?: string; // Max price per session
+    sortOption?: string; // Sorting criteria (e.g., price, sessions completed)
+    sessionsCompleted?: string;
+  };
+
+  export const searchClinics = async (
+    searchParams: SearchParams
+  ): Promise<ClinicSearchResponse> => {
+    const queryParams = new URLSearchParams();
+    
+    queryParams.append("location", searchParams.location || "");
+    queryParams.append("page", searchParams.page || "");
+    queryParams.append("maxPrice", searchParams.maxPrice || "");
+    queryParams.append("sortOption", searchParams.sortOption || "");
+  
+    searchParams.specialties?.forEach((specialty) =>
+      queryParams.append("specialties", specialty)
+    );
+  
+    searchParams.consultationTypes?.forEach((type) =>
+      queryParams.append("consultationTypes", type)
+    );
+  
+    searchParams.facilities?.forEach((facility) =>
+      queryParams.append("facilities", facility)
+    );
+  
+    if (searchParams.sessionsCompleted) {
+      queryParams.append("sessionsCompleted", searchParams.sessionsCompleted);
+    }
+  
+    const response = await fetch(
+      `${API_BASE_URL}/api/clinics/search?${queryParams}`
+    );
+  
+    if (!response.ok) {
+      throw new Error("Error fetching clinics");
+    }
+  
+    return response.json();
+  };
+  
+  

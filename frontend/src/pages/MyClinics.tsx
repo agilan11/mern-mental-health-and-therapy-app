@@ -2,7 +2,8 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
 import { BsBuilding, BsMap } from "react-icons/bs";
-import { BiMoney, BiStar } from "react-icons/bi";
+import { BiMoney } from "react-icons/bi";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import React from 'react';
 
 const MyClinics = () => {
@@ -54,8 +55,8 @@ const MyClinics = () => {
                 <BiMoney className="mr-1" />${clinic.pricePerSession} per session
               </div>
               <div className="border border-slate-300 rounded-sm p-3 flex items-center">
-                <BiStar className="mr-1" />
-                {clinic.starRating} Star Rating
+                <AiOutlineCheckCircle className="mr-1" />
+                {clinic.sessionsCompleted} sessionsCompleted
               </div>
             </div>
             <span className="flex justify-end">
