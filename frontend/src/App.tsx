@@ -7,6 +7,7 @@ import MyClinics from "./pages/MyClinics";
 import EditClinic from "./pages/EditClinic";
 import { useAppContext } from "./contexts/AppContext";
 import Search from './pages/Search';
+import Detail from './pages/Detail';
 import React from 'react';
 
 // ✅ Add this line
@@ -23,6 +24,14 @@ const App = () => {
         <Route path="/search" element={<Layout> 
           <Search />
         </Layout>} />
+        <Route
+          path="/detail/:clinicId"
+          element={
+            <Layout>
+              <Detail />
+            </Layout>
+          }
+        />
         <Route
           path="/register"
           element={

@@ -23,6 +23,7 @@ const Search=()=>{
 
     const searchParams = {
       location: search.location,
+      appointmentDate: search.appointmentDate.toISOString(),
       page: page.toString(),
       facilities: selectedFacilities,
       specialties: selectedSpecialties,
@@ -33,9 +34,10 @@ const Search=()=>{
   };
   
 
-    const { data: clinicData } = useQuery(["searchClinics", searchParams], () =>
+
+      const { data: clinicData, isLoading } = useQuery(["searchClinics", searchParams], () =>
         apiClient.searchClinics(searchParams)
-      );
+    );
     
       const handleSessionsCompletedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const sessionsCompleted = event.target.value;
@@ -125,8 +127,14 @@ const Search=()=>{
           <div className="flex flex-col gap-5">
             <div className="flex justify-between items-center">
               <span className="text-xl font-bold">
-                {clinicData?.pagination.total} Clinics found
-                {search.location ? ` in ${search.location}` : ""}
+              {isLoading
+                ? "Loading..."
+                : clinicData?.pagination.total === 1
+                ? "1 Clinic found"
+                : `${clinicData?.pagination.total || 0} Clinics found`}
+
+              {!isLoading && search.location ? ` in ${search.location}` : ""}
+
               </span>
               <select
                 value={sortOption}

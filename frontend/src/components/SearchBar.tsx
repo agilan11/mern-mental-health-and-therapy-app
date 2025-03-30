@@ -52,7 +52,9 @@ const SearchBar = () => {
   const search = useSearchContext();
 
   const [location, setLocation] = useState<string>(search.location);
+  const [appointmentDate, setAppointmentDate] = useState<Date>(search.appointmentDate);
   const [maxPrice, setMaxPrice] = useState<string>(search.maxPrice);
+  
   
   const [specialties, setSpecialties] = useState<string[]>(search.specialties);
   const [consultationTypes, setConsultationTypes] = useState<string[]>(search.consultationTypes);
@@ -72,7 +74,7 @@ const SearchBar = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    search.saveSearchValues(location, maxPrice, specialties, consultationTypes, facilities);
+    search.saveSearchValues(location, appointmentDate,maxPrice, specialties, consultationTypes, facilities);
     navigate("/search");
   };
 
@@ -94,6 +96,20 @@ const SearchBar = () => {
           />
         </div>
       </div>
+
+      <div>
+      <label className="block text-[#00ff00] font-semibold mb-1">Appointment Date</label>
+      <div className="flex items-center bg-[#1a1a1a] p-3 rounded-lg border border-[#00ff00]">
+        <DatePicker
+          selected={appointmentDate}
+          onChange={(date) => setAppointmentDate(date as Date)}
+          minDate={new Date()}
+          placeholderText="Select appointment date"
+          className="text-md w-full focus:outline-none bg-transparent text-white"
+          calendarClassName="bg-[#1a1a1a] text-white"
+        />
+      </div>
+    </div>
 
 
       <div>
@@ -217,6 +233,7 @@ const SearchBar = () => {
           type="button"
           onClick={() => {
             setLocation("");
+            setAppointmentDate(new Date());
             setMaxPrice("");
             setSpecialties([]);
             setConsultationTypes([]);

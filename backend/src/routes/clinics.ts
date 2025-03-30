@@ -9,6 +9,8 @@ const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
 
 const router = express.Router();
 
+
+
 router.get("/search", async (req: Request, res: Response) => {
   try {
     const query = constructSearchQuery(req.query);
@@ -55,19 +57,10 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/", async (req: Request, res: Response) => {
-  try {
-    const clinics = await Clinic.find().sort("-lastUpdated");
-    res.json(clinics);
-  } catch (error) {
-    console.log("error", error);
-    res.status(500).json({ message: "Error fetching hotels" });
-  }
-});
 
 router.get(
   "/:id",
-  [param("id").notEmpty().withMessage(" ID is required")],
+  [param("id").notEmpty().withMessage("Clinic ID is required")],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -85,6 +78,17 @@ router.get(
     }
   }
 );
+
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const clinics = await Clinic.find().sort("-lastUpdated");
+    res.json(clinics);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: "Error fetching clinics" });
+  }
+});
+
 
 
 {/*

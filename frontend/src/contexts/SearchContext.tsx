@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 
 type SearchContext = {
-  location: string; 
+  location: string;
+  appointmentDate: Date;
   maxPrice: string;// City or country where the clinic is located
   specialties: string[]; // Types of therapy offered (e.g., Anxiety, Depression)
   consultationTypes: string[]; // Therapy types (e.g., Individual, Family, Couples)
@@ -12,6 +13,7 @@ type SearchContext = {
 
   saveSearchValues: (
     location: string,
+    appointmentDate: Date,
     maxPrice: string,
     specialties: string[],
     consultationTypes: string[],
@@ -32,6 +34,10 @@ type SearchContext = {
     const [location, setLocation] = useState<string>(
       () => sessionStorage.getItem("location") || ""
     );
+    const [appointmentDate, setAppointmentDate] = useState<Date>(
+      () =>
+        new Date(sessionStorage.getItem("appointmentDate") || new Date().toISOString())
+    );
     const [maxPrice, setMaxPrice] = useState<string>(
       () => sessionStorage.getItem("maxPrice") || ""
     );
@@ -51,6 +57,7 @@ type SearchContext = {
   
     const saveSearchValues = (
       location: string,
+      appointmentDate: Date,
       maxPrice: string,
       specialties: string[],
       consultationTypes: string[],
@@ -58,6 +65,7 @@ type SearchContext = {
       
     ) => {
       setLocation(location);
+      setAppointmentDate(appointmentDate);
       setSpecialties(specialties);
       setConsultationTypes(consultationTypes);
 
@@ -69,6 +77,7 @@ type SearchContext = {
       }
     
       sessionStorage.setItem("location", location);
+      sessionStorage.setItem("appointmentDate", appointmentDate.toISOString());
       sessionStorage.setItem("specialties", JSON.stringify(specialties));
       sessionStorage.setItem("consultationTypes", JSON.stringify(consultationTypes));
       sessionStorage.setItem("facilities", JSON.stringify(facilities || []));
@@ -79,6 +88,7 @@ type SearchContext = {
       <SearchContext.Provider
         value={{
           location,
+          appointmentDate,
           maxPrice,
           specialties,
           consultationTypes,

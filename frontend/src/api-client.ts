@@ -116,8 +116,21 @@ export const register = async (formData: RegisterFormData) => {
     return response.json();
   };
 
+  export const fetchClinicById = async (clinicId: string): Promise<ClinicType> => {
+    const response = await fetch(`${API_BASE_URL}/api/my-clinics/${clinicId}`, {
+      credentials: "include",
+    });
+  
+    if (!response.ok) {
+      throw new Error("Error fetching Clinics");
+    }
+  
+    return response.json();
+  };
+
   export type SearchParams = {
     location?: string; // City or country where the clinic is located
+    appointmentDate?: string;
  // Preferred appointment date
     specialties?: string[]; // Types of therapy offered (e.g., Anxiety, Depression)
     consultationTypes?: string[]; // Therapy types (e.g., Individual, Family, Couples)
@@ -134,6 +147,7 @@ export const register = async (formData: RegisterFormData) => {
     const queryParams = new URLSearchParams();
     
     queryParams.append("location", searchParams.location || "");
+    queryParams.append("appointmentDate", searchParams.appointmentDate || "");
     queryParams.append("page", searchParams.page || "");
     queryParams.append("maxPrice", searchParams.maxPrice || "");
     queryParams.append("sortOption", searchParams.sortOption || "");
