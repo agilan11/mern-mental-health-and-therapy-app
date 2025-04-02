@@ -54,7 +54,7 @@ const SearchResultsCard = ({ clinic }: Props) => {
           </div>
 
           <div className="flex flex-col items-end gap-1">
-            <span className="font-bold">₹{clinic.pricePerSession} per session</span>
+            <span className="font-bold">${clinic.pricePerSession} per session</span>
             <Link
               to={`/detail/${clinic._id}`}
               className="bg-[#00ff00] text-black px-4 py-2 font-bold rounded-md 

@@ -8,6 +8,7 @@ import EditClinic from "./pages/EditClinic";
 import { useAppContext } from "./contexts/AppContext";
 import Search from './pages/Search';
 import Detail from './pages/Detail';
+import Booking from './pages/Booking'
 import React from 'react';
 
 // ✅ Add this line
@@ -50,6 +51,14 @@ const App = () => {
         />
         {isLoggedIn && (
           <>
+           <Route
+              path="/clinic/:clinicId/booking"
+              element={
+                <Layout>
+                  <Booking />
+                </Layout>
+              }
+            />
          <Route
               path="/add-clinic"
               element={

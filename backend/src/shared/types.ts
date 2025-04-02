@@ -12,6 +12,7 @@ export type ClinicType = {
     sessionsCompleted: number;  // Aggregate rating from patients
     imageUrls: string[];  // Clinic images
     lastUpdated: Date;  // List of scheduled appointments
+    bookings: BookingType[];
 };
 
 export type ClinicSearchResponse = {
@@ -21,4 +22,20 @@ export type ClinicSearchResponse = {
       page: number;
       pages: number;
     };
+  };
+
+  export type PaymentIntentResponse = {
+    paymentIntentId: string;
+    clientSecret: string;
+    Cost: number;
+  };
+
+  export type BookingType = {
+    _id: string;
+    userId: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    appointmentDate: Date;
+    Cost: number;
   };

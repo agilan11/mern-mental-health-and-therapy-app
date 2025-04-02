@@ -1,4 +1,14 @@
 import mongoose from "mongoose";
+import { BookingType } from "../shared/types";
+
+const bookingSchema = new mongoose.Schema<BookingType>({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    appointmentDate: { type: Date, required: true },
+    userId: { type: String, required: true },
+    Cost: { type: Number, required: true },
+  });
 
 export type ClinicType = {
     _id: string;
@@ -13,7 +23,8 @@ export type ClinicType = {
     pricePerSession: number;  // Cost per therapy session
     sessionsCompleted: number;  // Aggregate rating from patients
     imageUrls: string[];  // Clinic images
-    lastUpdated: Date;  // List of scheduled appointments
+    lastUpdated: Date; 
+    bookings: BookingType[]; // List of scheduled appointments
 };
 
 const clinicSchema = new mongoose.Schema<ClinicType>({
@@ -29,7 +40,7 @@ const clinicSchema = new mongoose.Schema<ClinicType>({
     sessionsCompleted: { type: Number, required: true, min: 0 }, // Aggregate rating
     imageUrls: [{ type: String, required: true }], // Clinic images
     lastUpdated: { type: Date, default: Date.now }, // Auto-updated timestamp
-     // Scheduled therapy sessions
+    bookings: [bookingSchema],
 });
 
 const Clinic = mongoose.model<ClinicType>("Clinic", clinicSchema);

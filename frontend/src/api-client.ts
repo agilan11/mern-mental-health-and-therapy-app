@@ -2,6 +2,19 @@ import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 import {ClinicType} from "./models/clinic";
 import {ClinicSearchResponse} from "./models/clinic"
+import { UserType,PaymentIntentResponse } from "./models/users";
+import { BookingFormData } from "./forms/BookingForm/BookingForm";
+
+
+export const fetchCurrentUser = async (): Promise<UserType> => {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching user");
+  }
+  return response.json();
+};
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 export const register = async (formData: RegisterFormData) => {
@@ -179,4 +192,42 @@ export const register = async (formData: RegisterFormData) => {
     return response.json();
   };
   
+  export const createPaymentIntent = async (
+    clinicId: string
+  ): Promise<PaymentIntentResponse> => {
+    const response = await fetch(
+      `${API_BASE_URL}/api/clinics/${clinicId}/bookings/payment-intent`,
+      {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  
+    if (!response.ok) {
+      throw new Error("Error fetching payment intent");
+    }
+  
+    return response.json();
+  };
+
+  export const createBooking = async (formData: BookingFormData) => {
+    const response = await fetch(
+      `${API_BASE_URL}/api/clinics/${formData.clinicId}/bookings`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+  
+    if (!response.ok) {
+      throw new Error("Error booking appointment");
+    }
+  };
   

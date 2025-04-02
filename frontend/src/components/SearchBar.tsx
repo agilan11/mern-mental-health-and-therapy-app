@@ -115,7 +115,7 @@ const SearchBar = () => {
       <div>
   <label className="block text-[#00ff00] font-semibold mb-1">Max Price</label>
       <div className="flex items-center bg-[#1a1a1a] p-3 rounded-lg border border-[#00ff00]">
-        <span className="text-[#00ff00] font-semibold mr-2">₹</span>
+        <span className="text-[#00ff00] font-semibold mr-2">$</span>
         <input
           placeholder="Enter max price"
           className="text-md w-full focus:outline-none bg-transparent text-white"

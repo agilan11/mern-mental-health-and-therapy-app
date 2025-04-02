@@ -3,7 +3,7 @@ import Clinic from "../models/clinic";
 import { param, validationResult } from "express-validator";
 import Stripe from "stripe";
 import verifyToken from "../middleware/auth";
-import { ClinicSearchResponse } from "../shared/types";
+import { ClinicSearchResponse, BookingType } from "../shared/types";
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
 
@@ -38,6 +38,7 @@ router.get("/search", async (req: Request, res: Response) => {
       .sort(sortOptions)
       .skip(skip)
       .limit(pageSize);
+
 
     const total = await Clinic.countDocuments(query);
 
@@ -89,7 +90,93 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+router.post(
+  "/:clinicId/bookings/payment-intent",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const clinicId = req.params.clinicId;
 
+    const clinic = await Clinic.findById(clinicId);
+    if (!clinic) {
+      return res.status(400).json({ message: "Clinic not found" });
+    }
+    const Cost = clinic.pricePerSession;
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Cost * 100,
+      currency: "usd",
+      metadata: {
+        clinicId,
+        userId: req.userId,
+      },
+    });
+    if (!paymentIntent.client_secret) {
+      return res.status(500).json({ message: "Error creating payment intent" });
+    }
+
+    const response = {
+      paymentIntentId: paymentIntent.id,
+      clientSecret: paymentIntent.client_secret.toString(),
+      Cost,
+    };
+
+    res.send(response);
+  })
+
+  router.post(
+    "/:clinicId/bookings",
+    verifyToken,
+    async (req: Request, res: Response) => {
+      try {
+        const paymentIntentId = req.body.paymentIntentId;
+  
+        const paymentIntent = await stripe.paymentIntents.retrieve(
+          paymentIntentId as string
+        );
+  
+        if (!paymentIntent) {
+          return res.status(400).json({ message: "payment intent not found" });
+        }
+  
+        if (
+          paymentIntent.metadata.clinicId !== req.params.clinicId ||
+          paymentIntent.metadata.userId !== req.userId
+        ) {
+          return res.status(400).json({ message: "payment intent mismatch" });
+        }
+  
+        if (paymentIntent.status !== "succeeded") {
+          return res.status(400).json({
+            message: `payment intent not succeeded. Status: ${paymentIntent.status}`,
+          });
+        }
+  
+        const newBooking: BookingType = {
+          ...req.body,
+          userId: req.userId,
+        };
+  
+        const clinic = await Clinic.findOneAndUpdate(
+          { _id: req.params.clinicId },
+          {
+            $push: { bookings: newBooking },
+          }
+        );
+  
+        if (!clinic) {
+          return res.status(400).json({ message: "clinic not found" });
+        }
+  
+        await clinic.save();
+        res.status(200).send();
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "something went wrong" });
+      }
+    }
+  );
+
+  
 
 {/*
 router.post(
