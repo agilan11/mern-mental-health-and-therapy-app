@@ -13,7 +13,18 @@ export type ClinicType = {
     pricePerSession: number;  // Cost per therapy session
     sessionsCompleted: number;  // Aggregate rating from patients
     imageUrls: string[];  // Clinic images
-    lastUpdated: Date;  // List of scheduled appointments
+    lastUpdated: Date; 
+    bookings: BookingType[]; // List of scheduled appointments
+};
+
+export type BookingType = {
+  _id: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  appointmentDate: Date;
+  Cost: number;
 };
 
 export type ClinicSearchResponse = {

@@ -10,7 +10,8 @@ import Search from './pages/Search';
 import Detail from './pages/Detail';
 import Booking from './pages/Booking'
 import React from 'react';
-
+import MyBookings from './pages/MyBookings';
+;
 // ✅ Add this line
 
 
@@ -75,6 +76,14 @@ const App = () => {
                 </Layout>
               }
             />
+            <Route
+            path="/my-bookings"
+            element={
+              <Layout>
+                <MyBookings />
+              </Layout>
+            }
+          />
           <Route
               path="/edit-clinic/:clinicId"
               element={

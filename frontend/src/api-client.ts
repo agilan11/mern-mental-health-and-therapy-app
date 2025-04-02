@@ -230,4 +230,16 @@ export const register = async (formData: RegisterFormData) => {
       throw new Error("Error booking appointment");
     }
   };
+
+  export const fetchMyBookings = async (): Promise<ClinicType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-bookings`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Unable to fetch bookings");
+  }
+
+  return response.json();
+};
   
