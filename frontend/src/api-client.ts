@@ -130,7 +130,7 @@ export const register = async (formData: RegisterFormData) => {
   };
 
   export const fetchClinicById = async (clinicId: string): Promise<ClinicType> => {
-    const response = await fetch(`${API_BASE_URL}/api/my-clinics/${clinicId}`, {
+    const response = await fetch(`${API_BASE_URL}/api/clinics/${clinicId}`, {
       credentials: "include",
     });
   

@@ -22,7 +22,7 @@ const Header = () => {
                 My Appointments
               </Link>
               <Link className="flex items-center text-[#00ff00] px-4 py-2 font-bold rounded-md hover:bg-[#008000] hover:text-white transition duration-300" to="/my-clinics">
-                My Clinics
+                List Your Clinic
               </Link>
               <SignOutButton />
             </>
