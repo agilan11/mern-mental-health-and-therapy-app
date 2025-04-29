@@ -80,50 +80,51 @@ const SearchBar = () => {
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="-mt-8 p-6 bg-black rounded-lg shadow-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 border-2 border-[#00ff00]"
-    >
-      {/* Location Input */}
-      <div>
-        <label className="block text-[#00ff00] font-semibold mb-1">Location</label>
-        <div className="flex items-center bg-[#1a1a1a] p-3 rounded-lg border border-[#00ff00]">
-          <MdLocationOn size={25} className="mr-2 text-[#00ff00]" />
-          <input
-            placeholder="Enter city or country"
-            className="text-md w-full focus:outline-none bg-transparent text-white"
-            value={location}
-            onChange={(event) => setLocation(event.target.value)}
-          />
-        </div>
-      </div>
-
-      <div>
-      <label className="block text-[#00ff00] font-semibold mb-1">Appointment Date</label>
-      <div className="flex items-center bg-[#1a1a1a] p-3 rounded-lg border border-[#00ff00]">
-        <DatePicker
-          selected={appointmentDate}
-          onChange={(date) => setAppointmentDate(date as Date)}
-          minDate={new Date()}
-          placeholderText="Select appointment date"
-          className="text-md w-full focus:outline-none bg-transparent text-white"
-          calendarClassName="bg-[#1a1a1a] text-white"
-        />
-      </div>
+  onSubmit={handleSubmit}
+  className="-mt-8 p-6 bg-black rounded-lg shadow-xl grid grid-cols-1 md:grid-cols-3 gap-4 border-2 border-[#00ff00]"
+>
+  {/* Location Input */}
+  <div className="w-full">
+    <label className="block text-[#00ff00] font-semibold mb-1">Location</label>
+    <div className="flex items-center bg-[#1a1a1a] p-3 rounded-lg border border-[#00ff00] w-full">
+      <MdLocationOn size={25} className="mr-2 text-[#00ff00]" />
+      <input
+        placeholder="Enter city or country"
+        className="text-md w-full focus:outline-none bg-transparent text-white"
+        value={location}
+        onChange={(event) => setLocation(event.target.value)}
+      />
     </div>
+  </div>
 
-
-      <div>
-  <label className="block text-[#00ff00] font-semibold mb-1">Max Price</label>
-      <div className="flex items-center bg-[#1a1a1a] p-3 rounded-lg border border-[#00ff00]">
-        <span className="text-[#00ff00] font-semibold mr-2">$</span>
-        <input
-          placeholder="Enter max price"
-          className="text-md w-full focus:outline-none bg-transparent text-white"
-          value={maxPrice} // ✅ Now it's a string
-          onChange={(event) => setMaxPrice(event.target.value)} // ✅ Store as string, no conversion needed here
-        />
-      </div>
+  {/* Appointment Date */}
+  <div className="w-full">
+    <label className="block text-[#00ff00] font-semibold mb-1">Appointment Date</label>
+    <div className="flex items-center bg-[#1a1a1a] p-3 rounded-lg border border-[#00ff00] w-full">
+      <DatePicker
+        selected={appointmentDate}
+        onChange={(date) => setAppointmentDate(date as Date)}
+        minDate={new Date()}
+        placeholderText="Select appointment date"
+        className="text-md w-full focus:outline-none bg-transparent text-white"
+        calendarClassName="bg-[#1a1a1a] text-white"
+      />
     </div>
+  </div>
+
+  {/* Max Price */}
+  <div className="w-full">
+    <label className="block text-[#00ff00] font-semibold mb-1">Max Price</label>
+    <div className="flex items-center bg-[#1a1a1a] p-3 rounded-lg border border-[#00ff00] w-full">
+      <span className="text-[#00ff00] font-semibold mr-2">$</span>
+      <input
+        placeholder="Enter max price"
+        className="text-md w-full focus:outline-none bg-transparent text-white"
+        value={maxPrice}
+        onChange={(event) => setMaxPrice(event.target.value)}
+      />
+    </div>
+  </div>
 
 
       {/* Specialties Dropdown 

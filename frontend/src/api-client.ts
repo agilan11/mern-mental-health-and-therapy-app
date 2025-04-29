@@ -231,6 +231,14 @@ export const register = async (formData: RegisterFormData) => {
     }
   };
 
+  export const fetchClinics = async (): Promise<ClinicType[]> => {
+    const response = await fetch(`${API_BASE_URL}/api/clinics`);
+    if (!response.ok) {
+      throw new Error("Error fetching clinics");
+    }
+    return response.json();
+  };
+
   export const fetchMyBookings = async (): Promise<ClinicType[]> => {
   const response = await fetch(`${API_BASE_URL}/api/my-bookings`, {
     credentials: "include",

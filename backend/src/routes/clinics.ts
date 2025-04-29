@@ -58,6 +58,16 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const clinics = await Clinic.find().sort("-lastUpdated");
+    res.json(clinics);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: "Error fetching clinics" });
+  }
+});
+
 
 router.get(
   "/:id",
