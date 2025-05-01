@@ -1,6 +1,6 @@
 # Therapy Booking App 
 
-A full-stack web application for booking mental health therapy sessions. Built using the MERN stack, the app lets mental health therapists list their clinics and the users can book different kinds of bookings such as individual and group therapy sessions, and comprises user authentication and real-time payments via Stripe.
+MindEasy Therapy is a  full-stack web application for booking mental health therapy sessions. Built using the MERN stack, the app lets mental health therapists list their clinics and users can book different kinds of bookings such as individual and group therapy sessions, and comprises user authentication and real-time payments via Stripe.
 
 ## 📑 Table of Contents
 
@@ -26,9 +26,25 @@ A full-stack web application for booking mental health therapy sessions. Built u
 - Stripe payments integration
 - JWT-based authentication 
 
+## 🖼️ Screenshots
 
 ![alt text](1.png)
 
+![alt text](2.PNG)
+
+![alt text](3.png)
+
+![alt text](4.PNG)
+
+![alt text](5.PNG)
+
+![alt text](6.PNG)
+
+![alt text](7.PNG)
+
+![alt text](8.PNG)
+
+![alt text](9.PNG)
 
 
 
