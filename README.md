@@ -28,7 +28,15 @@ MindEasy Therapy is a  full-stack web application for booking mental health ther
 
 ## 🖼️ Screenshots
 
+The following screenshot displays the home page of the Therapy Booking App. Users can explore available services and begin their mental wellness journey.
+
+![alt text](5.PNG)
+
+The following screenshot displays the searchbar, using which users can filter clinics in terms of location, availability dates and maximum price.
+
 ![alt text](1.png)
+
+The following screenshot displays the other parameters using which the user can filter clinics based on the number of sessions completed by the clinic, consultation types offered by the clinic and the user can sort the clinics based on price and number of sessions completed.
 
 ![alt text](2.PNG)
 
@@ -36,7 +44,6 @@ MindEasy Therapy is a  full-stack web application for booking mental health ther
 
 ![alt text](4.PNG)
 
-![alt text](5.PNG)
 
 ![alt text](6.PNG)
 
