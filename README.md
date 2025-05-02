@@ -12,11 +12,11 @@ MindEasy Therapy is a  full-stack web application for booking mental health ther
 - [Contributing](#contributing)
 
 
-## 🔗 Demo
+## Demo
 
 - Live App: [mern-mental-health-and-therapy-app.onrender.com](https://mern-mental-health-and-therapy-app.onrender.com/)
 
-## ✨ Features
+## Features
 
 - Clinics can be listed by therapists across the globe
 - Users can book various kinds of therapy such as individual therapy, couples therapy and family therapy
@@ -72,7 +72,7 @@ The following screenshot displays the appointments that have been booked by the 
 - **Payments:** Stripe API
 - **Deployment:** Render
 
-## 🛠️ Installation
+## Installation
 
 1. Clone the repository:
 
@@ -116,7 +116,7 @@ cd frontend
 npm run dev
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork this repo
 2. Create a branch: `git checkout -b feature-name`
